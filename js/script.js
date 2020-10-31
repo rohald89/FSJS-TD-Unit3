@@ -24,22 +24,18 @@ colorSelect.prepend(selectDesign);
 // change the available colors in the select menu based on the selected design 
 const changeColorSelect = () => {
     const colorOptions = document.querySelectorAll('#color option');
+    const shirtColors = document.querySelector('#shirt-colors');
     colorOptions.forEach(option => option.hidden = true);
-    if(designSelect.value === 'Select Theme'){
-        colorOptions.forEach(option => {
-            if(option.textContent.indexOf('select') !== -1){
-                option.hidden = false;
-                option.selected = true;
-            }
-        });
-    } else if (designSelect.value ==='js puns'){
+     if (designSelect.value ==='js puns'){
+        shirtColors.hidden = false;
         colorOptions.forEach(option => {
             if(option.textContent.indexOf('Puns') !== -1){
                 option.hidden = false;
                 option.selected = true;
             }
         });
-    } else {
+    } else if (designSelect.value === 'heart js'){
+        shirtColors.hidden = false;
         colorOptions.forEach(option => {
             console.log(option.textContent.indexOf('select') === -1 && option.textContent.indexOf('Puns') === -1);
             if(option.textContent.indexOf('select') === -1 && option.textContent.indexOf('Puns') === -1 ){
@@ -47,6 +43,8 @@ const changeColorSelect = () => {
                 option.selected = true;
             }
         });
+    } else {
+            shirtColors.hidden = true;
     }
 };
 changeColorSelect();
@@ -66,7 +64,6 @@ activities.addEventListener('change', e => {
     workshops.forEach(workshop => {
         if(selectedWorkshop === workshop.getAttribute('data-day-and-time') && e.target !== workshop){
             workshop.disabled = true;
-            console.log('found one!')
         }
         if(selectedWorkshop === workshop.getAttribute('data-day-and-time') && !e.target.checked){
             workshop.disabled = false;
@@ -77,3 +74,30 @@ activities.addEventListener('change', e => {
     });
     price.textContent = `Total: $${totalPrice}`;
 });
+
+const payment = document.querySelector('#payment');
+const creditCard = document.querySelector('#credit-card');
+document.querySelector('[value="credit card"]').selected = true;
+document.querySelector('[value="select method"]').disabled = true;
+const paypal = document.querySelector('#paypal');
+const bitcoin = document.querySelector('#bitcoin');
+
+const changePayment = () => {
+    if(payment.value === 'credit card'){
+        creditCard.hidden = false;
+        paypal.hidden = true;
+        bitcoin.hidden = true;
+    } else if(payment.value === 'paypal'){
+        creditCard.hidden = true;
+        paypal.hidden = false;
+        bitcoin.hidden = true;
+    } else if(payment.value === 'bitcoin'){
+        creditCard.hidden = true;
+        paypal.hidden = true;
+        bitcoin.hidden = false;
+    } 
+};
+changePayment();
+
+payment.addEventListener('change', changePayment);
+
