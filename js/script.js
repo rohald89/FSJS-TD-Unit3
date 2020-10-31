@@ -17,7 +17,7 @@ document.querySelector('#title').addEventListener('change', e => {
 const designSelect = document.querySelector('#design');
 const colorSelect = document.querySelector('#color');
 //create a new option and add it to the top of the options
-const selectDesign = new Option("Please select a T-shirt theme", '', true, true);
+const selectDesign = new Option("Please select a T-shirt theme", 'select', true, true);
 colorSelect.prepend(selectDesign);
 
 
@@ -27,6 +27,7 @@ const changeColorSelect = () => {
     const shirtColors = document.querySelector('#shirt-colors');
     colorOptions.forEach(option => option.hidden = true);
      if (designSelect.value ==='js puns'){
+        designSelect.firstElementChild.disabled = true;
         shirtColors.hidden = false;
         colorOptions.forEach(option => {
             if(option.textContent.indexOf('Puns') !== -1){
@@ -35,6 +36,7 @@ const changeColorSelect = () => {
             }
         });
     } else if (designSelect.value === 'heart js'){
+        designSelect.firstElementChild.disabled = true;
         shirtColors.hidden = false;
         colorOptions.forEach(option => {
             console.log(option.textContent.indexOf('select') === -1 && option.textContent.indexOf('Puns') === -1);
@@ -64,9 +66,11 @@ activities.addEventListener('change', e => {
     workshops.forEach(workshop => {
         if(selectedWorkshop === workshop.getAttribute('data-day-and-time') && e.target !== workshop){
             workshop.disabled = true;
+            workshop.parentNode.style.color = 'grey';
         }
         if(selectedWorkshop === workshop.getAttribute('data-day-and-time') && !e.target.checked){
             workshop.disabled = false;
+            workshop.parentNode.style.color = 'initial';
         }
         if(workshop.checked){
             totalPrice += parseInt(workshop.dataset.cost);
@@ -108,29 +112,65 @@ const creditcardInput = document.querySelector('#cc-num');
 const zipInput = document.querySelector('#zip');
 const cvvInput = document.querySelector('#cvv');
 
-const validName = name => /[a-z]+/i.test(name.value);
-const validMail = mail => /^[^@]+@[^@.]+\.[a-z]+$/i.test(mail.value);
+const validName = () => /[a-z]+/i.test(nameInput.value);
+const validMail = () => /^[^@]+@[^@.]+\.[a-z]+$/i.test(mailInput.value);
 const validCheckboxes = () => document.querySelectorAll('[type="checkbox"]:checked').length > 0 ? true : false;
-const validCreditCardNumber = credit => /^\d{13,16}$/.test(credit.value);
-const validZipcode = zip => /^\d{5}$/.test(zip.value);
-const validCvv = cvv => /^\d{3}$/.test(cvv.value);
+const validCreditCardNumber = () => /^\d{13,16}$/.test(creditcardInput.value);
+const validZipcode = () => /^\d{5}$/.test(zipInput.value);
+const validCvv = () => /^\d{3}$/.test(cvvInput.value);
 
 const validateCreditcard = () => {
-    if(validCreditCardNumber(creditcardInput.value) &&
-    validZipcode(zipInput.value) &&
-    validCvv(cvvInput.value)){
-        return true;
+    console.log(payment.value)
+    if(payment.value === 'credit card'){
+        console.log('check');
+        if(validCreditCardNumber(creditcardInput.value) &&
+        validZipcode(zipInput.value) &&
+        validCvv(cvvInput.value)){
+            return true;
+        } else {
+            return false;
+        }
     } else {
-        return false;
+        return true;
     }
+    
 }
 
 const submitBtn = document.querySelector('[type="submit"]');
 submitBtn.addEventListener('click', e => {
-    e.preventDefault();
-    if(validName(nameInput)){
+    if(((!validName() || !validMail() || !validCheckboxes()) && payment.value !== 'credit card') || ((!validCreditCardNumber() || !validZipcode() || !validCvv()) && payment.value === 'credit card')){
+        e.preventDefault();
+    }
+    if(validName()){
         nameInput.style.border = "5px solid green";
     } else {
         nameInput.style.border = "5px solid red";
     }
-})
+    if(validMail()){
+        mailInput.style.border = "5px solid green";
+    } else {
+        mailInput.style.border = "5px solid red";
+    }
+    if(validCheckboxes()){
+        activities.style.border = "5px solid green";
+    } else {
+        activities.style.border = "5px solid red";
+    } 
+    if(payment.value === 'credit card'){
+        if(validCreditCardNumber()){
+            creditcardInput.style.border = "5px solid green";
+        } else {
+            creditcardInput.style.border = "5px solid red";
+        } 
+        if(validZipcode()){
+            zipInput.style.border = "5px solid green";
+        } else {
+            zipInput.style.border = "5px solid red";
+        } 
+        if(validCvv()){
+            cvvInput.style.border = "5px solid green";
+        } else {
+            cvvInput.style.border = "5px solid red";
+        } 
+    }
+});
