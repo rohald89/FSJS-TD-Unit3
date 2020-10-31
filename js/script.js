@@ -101,3 +101,36 @@ changePayment();
 
 payment.addEventListener('change', changePayment);
 
+// Form validation
+const nameInput = document.querySelector('#name');
+const mailInput = document.querySelector('#mail');
+const creditcardInput = document.querySelector('#cc-num');
+const zipInput = document.querySelector('#zip');
+const cvvInput = document.querySelector('#cvv');
+
+const validName = name => /[a-z]+/i.test(name.value);
+const validMail = mail => /^[^@]+@[^@.]+\.[a-z]+$/i.test(mail.value);
+const validCheckboxes = () => document.querySelectorAll('[type="checkbox"]:checked').length > 0 ? true : false;
+const validCreditCardNumber = credit => /^\d{13,16}$/.test(credit.value);
+const validZipcode = zip => /^\d{5}$/.test(zip.value);
+const validCvv = cvv => /^\d{3}$/.test(cvv.value);
+
+const validateCreditcard = () => {
+    if(validCreditCardNumber(creditcardInput.value) &&
+    validZipcode(zipInput.value) &&
+    validCvv(cvvInput.value)){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+const submitBtn = document.querySelector('[type="submit"]');
+submitBtn.addEventListener('click', e => {
+    e.preventDefault();
+    if(validName(nameInput)){
+        nameInput.style.border = "5px solid green";
+    } else {
+        nameInput.style.border = "5px solid red";
+    }
+})
