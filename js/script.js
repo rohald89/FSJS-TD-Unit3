@@ -53,3 +53,27 @@ changeColorSelect();
 
 // check for a change in the design select menu to trigger the colorSelect to change
 designSelect.addEventListener('change', changeColorSelect);
+
+// workshops
+const activities = document.querySelector('.activities');
+const price = document.createElement('P');
+activities.append(price);
+
+activities.addEventListener('change', e => {
+    const workshops = activities.querySelectorAll('[type="checkbox"]');
+    const selectedWorkshop = e.target.getAttribute('data-day-and-time');
+    let totalPrice = 0;
+    workshops.forEach(workshop => {
+        if(selectedWorkshop === workshop.getAttribute('data-day-and-time') && e.target !== workshop){
+            workshop.disabled = true;
+            console.log('found one!')
+        }
+        if(selectedWorkshop === workshop.getAttribute('data-day-and-time') && !e.target.checked){
+            workshop.disabled = false;
+        }
+        if(workshop.checked){
+            totalPrice += parseInt(workshop.dataset.cost);
+        }
+    });
+    price.textContent = `Total: $${totalPrice}`;
+});
