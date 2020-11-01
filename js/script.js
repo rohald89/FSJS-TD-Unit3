@@ -93,6 +93,7 @@ const changePayment = () => {
         bitcoin.hidden = true;
     } else if(payment.value === 'paypal'){
         creditCard.hidden = true;
+        creditCard.querySelectorAll('input').forEach(input => input.className = '');
         paypal.hidden = false;
         bitcoin.hidden = true;
     } else if(payment.value === 'bitcoin'){
@@ -112,65 +113,24 @@ const creditcardInput = document.querySelector('#cc-num');
 const zipInput = document.querySelector('#zip');
 const cvvInput = document.querySelector('#cvv');
 
-const validName = () => /[a-z]+/i.test(nameInput.value);
-const validMail = () => /^[^@]+@[^@.]+\.[a-z]+$/i.test(mailInput.value);
-const validCheckboxes = () => document.querySelectorAll('[type="checkbox"]:checked').length > 0 ? true : false;
-const validCreditCardNumber = () => /^\d{13,16}$/.test(creditcardInput.value);
-const validZipcode = () => /^\d{5}$/.test(zipInput.value);
-const validCvv = () => /^\d{3}$/.test(cvvInput.value);
-
-const validateCreditcard = () => {
-    console.log(payment.value)
-    if(payment.value === 'credit card'){
-        console.log('check');
-        if(validCreditCardNumber(creditcardInput.value) &&
-        validZipcode(zipInput.value) &&
-        validCvv(cvvInput.value)){
-            return true;
-        } else {
-            return false;
-        }
-    } else {
-        return true;
-    }
-    
-}
+const validName = input => /[a-z]+/i.test(input.value) ? input.className = 'success' : input.className = 'error';
+const validMail = input => /^[^@]+@[^@.]+\.[a-z]+$/i.test(input.value) ? input.className = 'success' : input.className = 'error';
+const validCheckboxes = input => document.querySelectorAll('[type="checkbox"]:checked').length > 0 ? input.className = 'success' : input.className = 'error';
+const validCreditCardNumber = input => /^\d{13,16}$/.test(input.value) ? input.className = 'success' : input.className = 'error';
+const validZipcode = input => /^\d{5}$/.test(input.value) ? input.className = 'success' : input.className = 'error';
+const validCvv = input => /^\d{3}$/.test(input.value) ? input.className = 'success' : input.className = 'error';
 
 const submitBtn = document.querySelector('[type="submit"]');
 submitBtn.addEventListener('click', e => {
-    if(((!validName() || !validMail() || !validCheckboxes()) && payment.value !== 'credit card') || ((!validCreditCardNumber() || !validZipcode() || !validCvv()) && payment.value === 'credit card')){
-        e.preventDefault();
-    }
-    if(validName()){
-        nameInput.style.border = "5px solid green";
-    } else {
-        nameInput.style.border = "5px solid red";
-    }
-    if(validMail()){
-        mailInput.style.border = "5px solid green";
-    } else {
-        mailInput.style.border = "5px solid red";
-    }
-    if(validCheckboxes()){
-        activities.style.border = "5px solid green";
-    } else {
-        activities.style.border = "5px solid red";
-    } 
+    validName(nameInput);
+    validMail(mailInput);
+    validCheckboxes(activities);
     if(payment.value === 'credit card'){
-        if(validCreditCardNumber()){
-            creditcardInput.style.border = "5px solid green";
-        } else {
-            creditcardInput.style.border = "5px solid red";
-        } 
-        if(validZipcode()){
-            zipInput.style.border = "5px solid green";
-        } else {
-            zipInput.style.border = "5px solid red";
-        } 
-        if(validCvv()){
-            cvvInput.style.border = "5px solid green";
-        } else {
-            cvvInput.style.border = "5px solid red";
-        } 
+        validCreditCardNumber(creditcardInput);
+        validZipcode(zipInput);
+        validCvv(cvvInput);
+    }
+    if(document.querySelectorAll('.error').length > 0){
+        e.preventDefault();
     }
 });
