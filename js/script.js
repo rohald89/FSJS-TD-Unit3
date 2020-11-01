@@ -70,12 +70,14 @@ activities.addEventListener('change', e => {
         // when date and time are the same disable the other workshop
         if(selectedWorkshop === workshop.getAttribute('data-day-and-time') && e.target !== workshop){
             workshop.disabled = true;
-            workshop.parentNode.style.color = 'grey';
+            workshop.parentNode.style.color = 'var(--fog)';
+            workshop.parentNode.style.textDecoration = "line-through";
         }
         // when there is a workshop deselected change it back to initial state
         if(selectedWorkshop === workshop.getAttribute('data-day-and-time') && !e.target.checked){
             workshop.disabled = false;
             workshop.parentNode.style.color = 'initial';
+            workshop.parentNode.style.textDecoration = "none";
         }
         // calculate the total price of all the selected workshops
         if(workshop.checked){

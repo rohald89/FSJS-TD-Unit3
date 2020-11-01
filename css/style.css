@@ -4,6 +4,14 @@
 
 @import url("https://fonts.googleapis.com/css?family=Nunito|Roboto+Mono");
 
+:root {
+  --forest: #303f42;
+  --evergreen: #303f40;
+  --base: #717f5f;
+  --pine: #597064;
+  --fog: #c9d1c8;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -16,8 +24,8 @@ button {
 
 body {
   font: 1em/1.5;
-  color: rgba(6, 49, 68, 0.9);
-  background: #cde0fb;
+  color: var(--fog);
+  background: var(--evergreen);
 }
 
 header {
@@ -40,8 +48,8 @@ a {
 
 form {
   padding: 0.875em 1.875em 1.875em;
-  background: #9bbeef;
-  border: 2px solid rgba(8, 63, 87, 0.6);
+  background: var(--base);
+  border: 2px solid var(--forest);
   border-radius: 3px;
 }
 
@@ -64,7 +72,7 @@ button {
 legend {
   font-weight: bold;
   padding-top: 0.5em;
-  border-top: 2px solid rgba(8, 63, 87, 0.6);
+  border-top: 2px solid var(--forest);
   margin-bottom: 1.125em;
 }
 
@@ -90,15 +98,15 @@ input {
   font-size: 1em;
   font-weight: 500;
   padding: 0.8em;
-  background: #e9f6fb;
-  border: 2px solid rgb(111, 157, 220);
+  background: var(--fog);
+  border: 2px solid var(--pine);
   border-radius: 3px;
   outline: none;
 }
 
 input:focus {
-  background: #fff;
-  border-color: #5e97b0;
+  background: var(--fog);
+  border-color: var(--forest);
   transition: border-color 0.4s, background-color 0.4s;
 }
 
@@ -110,7 +118,7 @@ input[type="radio"] {
 button {
   color: #fff;
   padding: 0.55em 1.25em;
-  background: #083f57;
+  background: var(--forest);
   margin: 1.25em 0 0.5em;
   cursor: pointer;
   border: 2px solid black;
@@ -119,7 +127,7 @@ button {
 }
 
 button:hover {
-  background: #6f9ddc;
+  background: var(--pine);
 }
 
 input,
@@ -180,6 +188,14 @@ option {
   display: table;
   clear: both;
 }
+
+select {
+  background-color: var(--fog);
+  outline: none;
+  border-radius: 5px;
+  padding: 4px;
+}
+
 /* added id selector for higher level of specificity to update real time while typing (overriding focus state) */
 #name.success,
 #mail.success,
@@ -187,8 +203,8 @@ option {
 #zip.success,
 #cvv.success,
 .success {
-  background: rgb(236, 255, 237);
-  border-color: #68b05e;
+  background: rgb(221, 255, 223);
+  box-shadow: inset 0 0 10px -3px rgba(0, 128, 0, 0.8);
 }
 #name.error,
 #mail.error,
@@ -197,7 +213,8 @@ option {
 #cvv.error,
 .error {
   background: rgb(255, 236, 236);
-  border-color: #b05e5e;
+  /* border-color: #b05e5e; */
+  box-shadow: inset 0 0 10px -3px rgba(255, 0, 0, 0.7);
 }
 .container {
   position: relative;
@@ -208,12 +225,12 @@ option {
   font-size: 1.1em;
   text-align: center;
   position: absolute;
-  background: #2f558e;
-  left: 105%;
-  top: 7px;
+  background: var(--fog);
+  left: 103%;
+  top: 17px;
   width: 180px;
   padding: 7px 10px;
-  color: #fff;
+  color: #000;
 }
 .tooltip:after {
   right: 100%;
@@ -225,7 +242,7 @@ option {
   position: absolute;
   pointer-events: none;
   border-color: rgba(136, 183, 213, 0);
-  border-right-color: #2f558e;
+  border-right-color: var(--fog);
   border-width: 8px;
   margin-top: -8px;
 }
