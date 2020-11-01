@@ -19,23 +19,28 @@
               
       <fieldset>         
         <legend>Basic Info</legend>
-        
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="user-name">
-        
-        <label for="mail">Email:</label>
-        <input type="email" id="mail" name="user-email">
-        
-        <label for="title">Job Role</label>
-        <select id="title" name="user-title">
-          <option value="full-stack js developer">Full Stack JavaScript Developer</option>
-          <option value="front-end developer">Front End Developer</option>
-          <option value="back-end developer">Back End Developer</option>
-          <option value="designer">Designer</option>          
-          <option value="student">Student</option>
-          <option value="other">Other</option>  
-        </select>   
-        <input type="text" id="other-title" placeholder="Your Job Role">        
+        <div class="container">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="user-name">
+          <span class="tooltip">A name can only contain letters</span>
+        </div>
+        <div class="container">
+          <label for="mail">Email:</label>
+          <input type="email" id="mail" name="user-email">
+          <span class="tooltip">Enter a valid email address</span>
+        </div>
+        <div class="container">
+          <label for="title">Job Role</label>
+          <select id="title" name="user-title">
+            <option value="full-stack js developer">Full Stack JavaScript Developer</option>
+            <option value="front-end developer">Front End Developer</option>
+            <option value="back-end developer">Back End Developer</option>
+            <option value="designer">Designer</option>          
+            <option value="student">Student</option>
+            <option value="other">Other</option>  
+          </select>   
+          <input type="text" id="other-title" placeholder="Your Job Role">        
+        </div>
       </fieldset>
       
       <fieldset class="shirt">
@@ -117,21 +122,24 @@
           <option value="bitcoin">Bitcoin</option>
         </select>
 
-        <div id="credit-card" class="credit-card">
+        <div id="credit-card" class="credit-card container">
 
           <div class="col-6 col">
             <label for="cc-num">Card Number:</label>
-        	  <input id="cc-num" name="user-cc-num" type="text">
+            <input id="cc-num" name="user-cc-num" type="text">
+            <span class="tooltip">A credit card number consists of 13-16 digits</span>
           </div>
 
           <div class="col-3 col">
             <label for="zip">Zip Code:</label>
             <input id="zip" name="user-zip" type="text"> 
+            <span class="tooltip">Zip code contains 5 digits</span>
           </div>
 
           <div class="col-3 col">
             <label for="cvv">CVV:</label>
             <input id="cvv" name="user-cvv" type="text"> 
+            <span class="tooltip">CVV contains 3 digits</span>
           </div>
 
           <label for="exp-month">Expiration Date:</label>
