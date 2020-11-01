@@ -128,7 +128,7 @@ const cvvInput = document.querySelector('#cvv');
 
 // validation for all input fields when returned true add the class of 'success' for green styling
 // when returned false give the input the class of 'error' for the red styling
-const validName = input => /^[a-z]+\s?[a-z]+\s?[a-z]+\s?$/i.test(input.value) ? input.className = 'success' : input.className = 'error';
+const validName = input => /^[a-zA-Z\s]*$/i.test(input.value) ? input.className = 'success' : input.className = 'error';
 const validMail = input => /^[^@]+@[^@.]+\.[a-z]+$/i.test(input.value) ? input.className = 'success' : input.className = 'error';
 const validCheckboxes = input => document.querySelectorAll('[type="checkbox"]:checked').length > 0 ? input.className = 'success' : input.className = 'error';
 const validCreditCardNumber = input => /^\d{13,16}$/.test(input.value) ? input.className = 'success' : input.className = 'error';
